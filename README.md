@@ -17,6 +17,22 @@ Colours: red, orange, yellow, green, blue, purple, brown, black and white, each 
 
 The desktop app may ask you to approve the rename the first time, for a title you set yourself. In a terminal session, `/colour` says it needs the desktop app.
 
+## Install
+
+At the prompt of a terminal Claude Code session:
+
+```
+/plugin install colour --marketplace theboffin/claude-colour
+```
+
+Answer `y` to add the marketplace, then pick the user scope so it loads in every session, including the desktop app's.
+
+## Turn it off
+
+```
+claude plugin disable colour@bdukes-colour
+```
+
 ## Develop
 
 The command is in `hooks/register.ts`, the colours in `hooks/colours.ts`, tests in `hooks/colour.test.ts`.
