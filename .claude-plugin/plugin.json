@@ -1,0 +1,5 @@
+{
+  "name": "colour",
+  "version": "0.2.0",
+  "description": "Colour-code a session in the sidebar with /colour, which puts a coloured emoji at the start of its title"
+}

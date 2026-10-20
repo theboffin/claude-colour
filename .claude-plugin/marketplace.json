@@ -1,0 +1,5 @@
+{
+  "name": "bdukes-colour",
+  "owner": { "name": "theboffin" },
+  "plugins": [{ "name": "colour", "source": "./" }]
+}
