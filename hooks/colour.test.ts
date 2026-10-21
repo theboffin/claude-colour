@@ -39,6 +39,8 @@ test('puts the mark in front, replacing any earlier one', () => {
   expect(withMark("🩷 Claude MOD's", '')).toBe("Claude MOD's")
   expect(withMark("☎️ Claude MOD's", '🦘')).toBe("🦘 Claude MOD's")
   expect(withMark("🦘 Claude MOD's", '🟢')).toBe("🟢 Claude MOD's")
+  expect(withMark("⭐ 🫖👑🦘 ☎️🕰️🙌 Claude MOD's", '⭐')).toBe("⭐ Claude MOD's")
+  expect(withMark("🌈🩷 Claude MOD's", '')).toBe("Claude MOD's")
 })
 
 // Stands in for the desktop app's session tools.
@@ -60,7 +62,7 @@ test('/colour renames the session at once', async ($, on) => {
   const app = fakeApp(on, "🔵 Claude MOD's")
   expect((await $.command.run({ command: 'colour', args: 'rainbow' })).text).toBe('This session is now 🌈.')
   expect(app.title).toBe("🌈 Claude MOD's")
-  await $.command.run({ command: 'color', args: 'green square' })
+  await $.command.run({ command: 'colour', args: 'green square' })
   expect(app.title).toBe("🟩 Claude MOD's")
   expect((await $.command.run({ command: 'colour', args: 'none' })).text).toBe('Colour removed from this session.')
   expect(app.title).toBe("Claude MOD's")

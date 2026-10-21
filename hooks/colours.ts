@@ -111,11 +111,10 @@ Emoji: ${EMOJI_LIST}` }
   return { mark }
 }
 
-// The title with `mark` in front ('' strips it), any earlier mark replaced.
+// The title with `mark` in front ('' strips it), every earlier mark replaced.
 export const withMark = (title: string, mark: string): string => {
   let base = title.trimStart()
-  const old = MARKS.find(m => base.startsWith(m))
-  if (old !== undefined) {
+  for (let old = MARKS.find(m => base.startsWith(m)); old !== undefined; old = MARKS.find(m => base.startsWith(m))) {
     base = base.slice(old.length).trimStart()
   }
 

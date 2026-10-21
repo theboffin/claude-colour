@@ -11,19 +11,18 @@ const textOf = (result: McpToolResult): string =>
 
 export const register: Register = on => {
   on('session.start', async ($, e, next) => {
-    for (const name of ['colour', 'color']) {
-      await $.command.register({
-        name,
-        description: 'Colour this session in the sidebar (a coloured emoji before its title)',
-        argumentHint: '<colour> [round|square] | rainbow | random | none',
-      })
-    }
+    // No /color alias: Claude Code has a built-in /color of its own.
+    await $.command.register({
+      name: 'colour',
+      description: 'Mark this session in the sidebar (a coloured shape or emoji before its title)',
+      argumentHint: '<colour> [round|square|heart] | emoji-<name> | rainbow | random | none',
+    })
 
     return next(e)
   })
 
   on('command.run', async ($, e, next) => {
-    if (e.command !== 'colour' && e.command !== 'color') {
+    if (e.command !== 'colour') {
       return next(e)
     }
     const parsed = parse(e.args)

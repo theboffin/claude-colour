@@ -24,7 +24,7 @@ Sessions are never marked unless you ask.
 | `/colour none` | My session |
 | `/colour` | lists everything below |
 
-A new choice replaces the old one rather than adding a second. `/color` works too.
+A new choice replaces the old one (or several) rather than adding another. There's no `/color` spelling: Claude Code has a built-in `/color` of its own.
 
 ## Colours
 
