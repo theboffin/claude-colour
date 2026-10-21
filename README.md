@@ -9,11 +9,14 @@ A Claude Code plugin for the desktop app that colour-codes sessions in the sideb
 | `/colour green heart` | 💚 My session |
 | `/colour pink` | 🩷 My session |
 | `/colour rainbow` | 🌈 My session |
+| `/colour emoji-kangaroo` | 🦘 My session |
 | `/colour random` | a random circle, square or heart |
 | `/colour none` | My session |
 | `/colour` | lists every colour |
 
-Colours: red, orange, yellow, green, blue, purple, brown, black and white, each round, square or heart. Hearts also come in pink and grey; pink needs no shape named, and grey as a circle or square gives black. `/color` and `gray` work too. Sessions are never coloured unless you ask.
+Colours: red, orange, yellow, green, blue, purple, brown, black and white, each round, square or heart. Hearts also come in pink and grey; pink needs no shape named, and grey as a circle or square gives black. `/color` and `gray` work too.
+
+Emoji (`/colour emoji-<name>`, or `/colour emoji <name>`): 💂 guard, 🫖 teapot, 👑 crown, 🦘 kangaroo, 🐨 koala, 🗽 liberty, 🦅 eagle, 🌉 bridge, ☎️ telephone, 🕰️ clock, 🙂 smiley, 🙁 frown, 😁 grin, 🙌 arms-up, 😂 laugh, 😉 wink, 😎 cool, 🤔 think, 😢 sad, 👍 thumbs-up, ⭐ star, 🔥 fire, 🚀 rocket, 🐛 bug, ✅ tick, ❌ cross, ⚠️ warning, 🔒 lock, ☕ coffee, 🎉 party. There are no country flags: Windows' emoji font doesn't draw them, so they'd show as letters. Sessions are never coloured unless you ask.
 
 The desktop app may ask you to approve the rename the first time, for a title you set yourself. In a terminal session, `/colour` says it needs the desktop app.
 

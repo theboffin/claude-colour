@@ -16,13 +16,35 @@ export const HEART: Record<string, string> = {
 
 export const RAINBOW = '🌈'
 
+// /colour emoji-<name>: markers that aren't colours. Windows draws all of
+// these (it has no country flags, which is why there are none).
+export const EMOJI: Record<string, string> = {
+  guard: '💂', teapot: '🫖', crown: '👑', kangaroo: '🦘', koala: '🐨',
+  liberty: '🗽', eagle: '🦅', bridge: '🌉', telephone: '☎️', clock: '🕰️',
+  smiley: '🙂', frown: '🙁', grin: '😁', 'arms-up': '🙌', laugh: '😂',
+  wink: '😉', cool: '😎', think: '🤔', sad: '😢', 'thumbs-up': '👍',
+  star: '⭐', fire: '🔥', rocket: '🚀', bug: '🐛', tick: '✅', cross: '❌',
+  warning: '⚠️', lock: '🔒', coffee: '☕', party: '🎉',
+}
+
+// Other spellings people reach for.
+const EMOJI_ALIASES: Record<string, string> = {
+  kangeroo: 'kangaroo', phone: 'telephone', smile: 'smiley', frowning: 'frown',
+  thumbsup: 'thumbs-up', armsup: 'arms-up', check: 'tick', tea: 'teapot',
+}
+
 // Every emoji this mod puts at the start of a title, so a new choice
-// replaces the old one rather than stacking.
-// Hearts first: '❤️' is '❤' plus a variation selector, so it must match whole.
-const MARKS = [...Object.values(HEART), ...Object.values(ROUND), ...Object.values(SQUARE), RAINBOW]
+// replaces the old one rather than stacking. Longest first: '❤️' and '☎️'
+// carry a variation selector, and must match whole before their bare form.
+const MARKS = [
+  ...Object.values(HEART), ...Object.values(ROUND), ...Object.values(SQUARE),
+  ...Object.values(EMOJI), RAINBOW,
+].sort((a, b) => b.length - a.length)
+
+const EMOJI_LIST = Object.entries(EMOJI).map(([n, m]) => `${m} ${n}`).join('  ')
 
 export const USAGE = [
-  'Usage: /colour <colour> [round|square|heart], /colour rainbow, /colour random, /colour none',
+  'Usage: /colour <colour> [round|square|heart], /colour emoji-<name>, /colour rainbow, /colour random, /colour none',
   `Round:  ${Object.entries(ROUND).map(([n, m]) => `${m} ${n}`).join('  ')}`,
   `Square: ${Object.entries(SQUARE).map(([n, m]) => `${m} ${n}`).join('  ')}`,
   `Heart:  ${Object.entries(HEART).map(([n, m]) => `${m} ${n}`).join('  ')}`,
@@ -43,6 +65,20 @@ export const parse = (args: string, pick: (n: number) => number = n => Math.floo
   const shape = given ?? (colour === 'pink' ? 'heart' : 'round')
   if (rest.length > 0) {
     return { error: `Too many words: "${args.trim()}".` }
+  }
+  // emoji-<name>, or emoji <name>.
+  if (colour === 'emoji' || colour.startsWith('emoji-')) {
+    const typed = colour === 'emoji' ? given : colour.slice('emoji-'.length)
+    if (typed === undefined || typed === '') {
+      return { error: `Name one: /colour emoji-<name>.
+Emoji: ${EMOJI_LIST}` }
+    }
+    const mark = EMOJI[EMOJI_ALIASES[typed] ?? typed]
+    if (mark === undefined) {
+      return { error: `There's no "${typed}" emoji here.
+Emoji: ${EMOJI_LIST}` }
+    }
+    return { mark }
   }
   if (colour === 'none' || colour === 'off' || colour === 'clear') {
     return { mark: '' }

@@ -18,6 +18,13 @@ test('parses colours, shapes and the extras', () => {
   expect(parse('grey heart')).toEqual({ mark: '🩶' })
   expect(parse('gray')).toEqual({ mark: '⚫' })
   expect(parse('pink square')).toEqual({ error: 'pink comes only as a heart: /colour pink heart.' })
+  expect(parse('emoji-kangaroo')).toEqual({ mark: '🦘' })
+  expect(parse('emoji-kangeroo')).toEqual({ mark: '🦘' })
+  expect(parse('emoji arms-up')).toEqual({ mark: '🙌' })
+  expect(parse('Emoji-Liberty')).toEqual({ mark: '🗽' })
+  expect(parse('emoji-telephone')).toEqual({ mark: '☎️' })
+  expect('error' in parse('emoji-unicorn')).toBe(true)
+  expect('error' in parse('emoji')).toBe(true)
   expect(parse('')).toEqual({ usage: true })
   expect('error' in parse('teal')).toBe(true)
   expect('error' in parse('green hexagon')).toBe(true)
@@ -30,6 +37,8 @@ test('puts the mark in front, replacing any earlier one', () => {
   expect(withMark("Claude MOD's", '')).toBe("Claude MOD's")
   expect(withMark("❤️ Claude MOD's", '🩷')).toBe("🩷 Claude MOD's")
   expect(withMark("🩷 Claude MOD's", '')).toBe("Claude MOD's")
+  expect(withMark("☎️ Claude MOD's", '🦘')).toBe("🦘 Claude MOD's")
+  expect(withMark("🦘 Claude MOD's", '🟢')).toBe("🟢 Claude MOD's")
 })
 
 // Stands in for the desktop app's session tools.
