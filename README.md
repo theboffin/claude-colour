@@ -1,6 +1,16 @@
 # colour
 
-A Claude Code plugin for the desktop app that colour-codes sessions in the sidebar by putting a coloured emoji at the start of the session's title.
+A Claude Code plugin for the desktop app that marks sessions in the sidebar with a coloured shape or an emoji at the start of the session's title, so you can tell them apart at a glance.
+
+```
+🟢 GDLW-1304 last recheck date
+🟥 Prod incident triage
+🦘 Australian testbench
+```
+
+Sessions are never marked unless you ask.
+
+## Use
 
 | Type | Title becomes |
 |---|---|
@@ -12,13 +22,39 @@ A Claude Code plugin for the desktop app that colour-codes sessions in the sideb
 | `/colour emoji-kangaroo` | 🦘 My session |
 | `/colour random` | a random circle, square or heart |
 | `/colour none` | My session |
-| `/colour` | lists every colour |
+| `/colour` | lists everything below |
 
-Colours: red, orange, yellow, green, blue, purple, brown, black and white, each round, square or heart. Hearts also come in pink and grey; pink needs no shape named, and grey as a circle or square gives black. `/color` and `gray` work too.
+A new choice replaces the old one rather than adding a second. `/color` works too.
 
-Emoji (`/colour emoji-<name>`, or `/colour emoji <name>`): 💂 guard, 🫖 teapot, 👑 crown, 🦘 kangaroo, 🐨 koala, 🗽 liberty, 🦅 eagle, 🌉 bridge, ☎️ telephone, 🕰️ clock, 🙂 smiley, 🙁 frown, 😁 grin, 🙌 arms-up, 😂 laugh, 😉 wink, 😎 cool, 🤔 think, 😢 sad, 👍 thumbs-up, ⭐ star, 🔥 fire, 🚀 rocket, 🐛 bug, ✅ tick, ❌ cross, ⚠️ warning, 🔒 lock, ☕ coffee, 🎉 party. There are no country flags: Windows' emoji font doesn't draw them, so they'd show as letters. Sessions are never coloured unless you ask.
+## Colours
 
-The desktop app may ask you to approve the rename the first time, for a title you set yourself. In a terminal session, `/colour` says it needs the desktop app.
+| Shape | Colours |
+|---|---|
+| Round (the default) | 🔴 red, 🟠 orange, 🟡 yellow, 🟢 green, 🔵 blue, 🟣 purple, 🟤 brown, ⚫ black, ⚪ white |
+| Square | 🟥 red, 🟧 orange, 🟨 yellow, 🟩 green, 🟦 blue, 🟪 purple, 🟫 brown, ⬛ black, ⬜ white |
+| Heart | ❤️ red, 🧡 orange, 💛 yellow, 💚 green, 💙 blue, 💜 purple, 🤎 brown, 🖤 black, 🤍 white, 🩷 pink, 🩶 grey |
+
+Pink comes only as a heart, so `/colour pink` needs no shape. Grey as a circle or square gives black. `gray` works too.
+
+## Emoji
+
+Type `/colour emoji-<name>` (or `/colour emoji <name>`):
+
+| Group | Names |
+|---|---|
+| Places and things | 💂 guard, 🫖 teapot, 👑 crown, 🦘 kangaroo, 🐨 koala, 🗽 liberty, 🦅 eagle, 🌉 bridge, ☎️ telephone, 🕰️ clock |
+| Faces | 🙂 smiley, 🙁 frown, 😁 grin, 🙌 arms-up, 😂 laugh, 😉 wink, 😎 cool, 🤔 think, 😢 sad, 👍 thumbs-up |
+| Markers | ⭐ star, 🔥 fire, 🚀 rocket, 🐛 bug, ✅ tick, ❌ cross, ⚠️ warning, 🔒 lock, ☕ coffee, 🎉 party |
+
+A few other spellings work too: `kangeroo`, `phone`, `smile`, `tea`, `check`, `thumbsup`. `/colour random` picks only colours, never emoji.
+
+There are no country flags. Windows' emoji font has none, so the desktop app shows them as letters (🇬🇧 as "GB").
+
+## Notes
+
+- Desktop app only. In a terminal session, `/colour` says so and changes nothing.
+- The plugin renames the session through the desktop app. The app may ask you to approve the rename the first time, for a title you set yourself.
+- If you rename a session yourself and drop the marker, it stays off until you run `/colour` again.
 
 ## Install
 
@@ -38,7 +74,7 @@ claude plugin disable colour@bdukes-colour
 
 ## Develop
 
-The command is in `hooks/register.ts`, the colours in `hooks/colours.ts`, tests in `hooks/colour.test.ts`.
+The command is in `hooks/register.ts`, the colours and emoji in `hooks/colours.ts`, and the tests in `hooks/colour.test.ts`.
 
 ```
 claude plugin validate .
